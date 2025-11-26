@@ -1,0 +1,44 @@
+@startuml Strategy Pattern
+abstract class SalaryCalculationStrategy {
+  + {abstract} calculate_salary(base_salary: float, employee_data: Dict): float
+  + {abstract} get_strategy_name(): str
+}
+
+class StandardSalaryStrategy {
+  + calculate_salary(base_salary: float, employee_data: Dict): float
+  + get_strategy_name(): str
+}
+
+class PerformanceBonusStrategy {
+  + calculate_salary(base_salary: float, employee_data: Dict): float
+  + get_strategy_name(): str
+}
+
+class SeniorityBonusStrategy {
+  + calculate_salary(base_salary: float, employee_data: Dict): float
+  + get_strategy_name(): str
+}
+
+class CommissionBasedStrategy {
+  + calculate_salary(base_salary: float, employee_data: Dict): float
+  + get_strategy_name(): str
+}
+
+class ComprehensiveStrategy {
+  + calculate_salary(base_salary: float, employee_data: Dict): float
+  + get_strategy_name(): str
+}
+
+class SalaryCalculator {
+  - _strategy: SalaryCalculationStrategy
+  + set_strategy(strategy: SalaryCalculationStrategy)
+  + calculate(base_salary: float, employee_data: Dict): Dict
+}
+
+SalaryCalculationStrategy <|-- StandardSalaryStrategy
+SalaryCalculationStrategy <|-- PerformanceBonusStrategy
+SalaryCalculationStrategy <|-- SeniorityBonusStrategy
+SalaryCalculationStrategy <|-- CommissionBasedStrategy
+SalaryCalculationStrategy <|-- ComprehensiveStrategy
+SalaryCalculator --> SalaryCalculationStrategy : uses
+@enduml

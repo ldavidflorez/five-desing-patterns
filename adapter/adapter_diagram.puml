@@ -1,0 +1,43 @@
+@startuml Adapter Pattern
+interface EmployeeDataSource {
+  + {abstract} get_employee_data(employee_id: str): Dict
+  + {abstract} get_all_employees(): List[Dict]
+}
+
+class LegacyHRSystem {
+  - legacy_data: Dict
+  + fetch_employee_info(emp_id: str): Dict
+  + get_employee_list(): List[str]
+}
+
+class ExternalPayrollAPI {
+  - payroll_data: Dict
+  + retrieve_employee(id: str): Dict
+  + list_employees(): List[Dict]
+}
+
+class LegacyHRAdapter {
+  - legacy_system: LegacyHRSystem
+  + get_employee_data(employee_id: str): Dict
+  + get_all_employees(): List[Dict]
+}
+
+class PayrollAPIAdapter {
+  - payroll_api: ExternalPayrollAPI
+  + get_employee_data(employee_id: str): Dict
+  + get_all_employees(): List[Dict]
+}
+
+class EmployeeDataIntegrator {
+  - data_sources: List[EmployeeDataSource]
+  + add_data_source(adapter: EmployeeDataSource)
+  + get_employee(employee_id: str): Dict
+  + get_all_employees_from_all_sources(): List[Dict]
+}
+
+EmployeeDataSource <|.. LegacyHRAdapter
+EmployeeDataSource <|.. PayrollAPIAdapter
+LegacyHRAdapter --> LegacyHRSystem : adapts
+PayrollAPIAdapter --> ExternalPayrollAPI : adapts
+EmployeeDataIntegrator --> EmployeeDataSource : uses
+@enduml

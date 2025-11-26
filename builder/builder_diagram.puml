@@ -1,0 +1,25 @@
+@startuml Builder Pattern
+class Employee {
+  - name: str
+  - address: str
+  - phone: str
+  - email: str
+  - hire_date: datetime
+  - role: str
+  - salary: float
+  + __str__(): str
+}
+
+class EmployeeBuilder {
+  - employee: Employee
+  + set_name(name: str): EmployeeBuilder
+  + set_address(address: str): EmployeeBuilder
+  + set_contact(phone: str, email: str): EmployeeBuilder
+  + set_hire_date(hire_date: datetime): EmployeeBuilder
+  + set_role(role: str): EmployeeBuilder
+  + set_salary(salary: float): EmployeeBuilder
+  + build(): Employee
+}
+
+EmployeeBuilder --> Employee : builds
+@enduml

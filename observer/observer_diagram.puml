@@ -1,0 +1,54 @@
+@startuml Observer Pattern
+enum EventType {
+  EMPLOYEE_ADDED
+  EMPLOYEE_UPDATED
+  SALARY_CHANGED
+  ROLE_CHANGED
+  EMPLOYEE_TERMINATED
+}
+
+abstract class Observer {
+  + {abstract} update(event_type: EventType, data: Dict)
+}
+
+class Subject {
+  - _observers: List<Observer]
+  + attach(observer: Observer)
+  + detach(observer: Observer)
+  + notify(event_type: EventType, data: Dict)
+}
+
+class AuditLogger {
+  - audit_log: List[Dict]
+  + update(event_type: EventType, data: Dict)
+  + get_audit_trail(): List[Dict]
+}
+
+class EmailNotifier {
+  + update(event_type: EventType, data: Dict)
+}
+
+class ReportGenerator {
+  - reports_updated: int
+  + update(event_type: EventType, data: Dict)
+}
+
+class AnalyticsDashboard {
+  - metrics: Dict
+  + update(event_type: EventType, data: Dict)
+}
+
+class EmployeeDatabaseObservable {
+  - employees: Dict[str, Dict]
+  + add_employee(employee_id: str, employee_data: Dict)
+  + update_salary(employee_id: str, new_salary: float)
+  + update_role(employee_id: str, new_role: str)
+}
+
+Observer <|-- AuditLogger
+Observer <|-- EmailNotifier
+Observer <|-- ReportGenerator
+Observer <|-- AnalyticsDashboard
+Subject <|-- EmployeeDatabaseObservable
+EmployeeDatabaseObservable --> Observer : notifies
+@enduml

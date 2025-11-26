@@ -1,0 +1,43 @@
+@startuml Factory Method Pattern
+abstract class EmployeeRole {
+  - title: str
+  + {abstract} get_responsibilities(): List[str]
+  + {abstract} get_salary_range(): tuple
+  + {abstract} get_department(): str
+}
+
+class ManagerRole {
+  + get_responsibilities(): List[str]
+  + get_salary_range(): tuple
+  + get_department(): str
+}
+
+class DeveloperRole {
+  + get_responsibilities(): List[str]
+  + get_salary_range(): tuple
+  + get_department(): str
+}
+
+class AccountantRole {
+  + get_responsibilities(): List[str]
+  + get_salary_range(): tuple
+  + get_department(): str
+}
+
+class HRSpecialistRole {
+  + get_responsibilities(): List[str]
+  + get_salary_range(): tuple
+  + get_department(): str
+}
+
+class EmployeeRoleFactory {
+  + {static} create_role(role_type: str): EmployeeRole
+  + {static} get_available_roles(): List[str]
+}
+
+EmployeeRole <|-- ManagerRole
+EmployeeRole <|-- DeveloperRole
+EmployeeRole <|-- AccountantRole
+EmployeeRole <|-- HRSpecialistRole
+EmployeeRoleFactory --> EmployeeRole : creates
+@enduml
